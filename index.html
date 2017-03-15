@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>XML parser</title>
+        <script src="js/XMLParser.js"></script>
+        <!-- highlight.js -->
+        <link rel="stylesheet" href="highlight.js/css/default.css"/>
+        <script src="highlight.js/highlight.pack.js"></script>
+    </head>
+    <body>
+        <h1>XML</h1>
+        <pre><code id="XML"></code></pre>
+        <h1>JSON (converted)</h1>
+        <pre><code id="JSON"></code></pre>
+        <script type="text/javascript">
+            const ATTRIBUTEPREFIX = "@";
+            var jSONElement;
+            var jSONObject;
+            var req;
+            var xMLElement;
+
+            jSONElement = document.getElementById("JSON");
+            xMLElement = document.getElementById("XML");
+
+            function reqListener() {
+                xMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
+                hljs.highlightBlock(xMLElement);
+                jSONObject = this.responseXML.parse(ATTRIBUTEPREFIX);
+                jSONElement.innerText = JSON.stringify(jSONObject, null, '    ');
+                hljs.highlightBlock(jSONElement);
+            }
+
+            req = new XMLHttpRequest();
+            req.addEventListener("load", reqListener);
+            req.open("GET", "sample.xml");
+            req.send();
+        </script>
+    </body>
+</html>

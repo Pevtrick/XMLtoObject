@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<animals type='List'>
+ <dog color='Black'>
+  <name>Rufus</name>
+  <breed>Labrador</breed>
+ </dog>
+ <dog color='Brown'>
+  <name>Doggy</name>
+  <breed>Labrador</breed>
+ </dog>
+ <cat color="White">
+  <name>Matilda</name>
+  <age></age>
+ </cat>
+ <owner>
+  <person>
+   <name>Patrick</name>
+   <age>25</age>
+  </person>
+ </owner>
+</animals>
