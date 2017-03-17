@@ -27,7 +27,7 @@
             myXMLFile = "sample.xml";
 
             myXHR.onreadystatechange = function() {
-                if (this.readyState === XMLHttpRequest.DONE && this.status == 200) {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
                     hljs.highlightBlock(myXMLElement);
                     myObject = this.responseXML.parse("@");
