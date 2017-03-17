@@ -27,11 +27,13 @@
             myXMLFile = "sample.xml";
 
             myXHR.onreadystatechange = function() {
-                myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
-                hljs.highlightBlock(myXMLElement);
-                myObject = this.responseXML.parse("@");
-                myJSONElement.innerText = JSON.stringify(myObject, null, '    ');
-                hljs.highlightBlock(myJSONElement);
+                if (this.readyState === XMLHttpRequest.DONE && this.status == 200) {
+                    myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
+                    hljs.highlightBlock(myXMLElement);
+                    myObject = this.responseXML.parse("@");
+                    myJSONElement.innerText = JSON.stringify(myObject, null, '    ');
+                    hljs.highlightBlock(myJSONElement);
+                }
             };
             myXHR.open("GET", myXMLFile);
             myXHR.send();
