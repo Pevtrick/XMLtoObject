@@ -15,7 +15,7 @@
         <pre><code id="JSON"></code></pre>
         <script type="text/javascript">
             var myJSONElement;
-            var myJSONObject;
+            var myObject;
             var myXHR;
             var myXMLElement;
             var myXMLFile;
@@ -29,8 +29,8 @@
             myXHR.onreadystatechange = function() {
                 myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
                 hljs.highlightBlock(myXMLElement);
-                myJSONObject = this.responseXML.parse("@");
-                myJSONElement.innerText = JSON.stringify(myJSONObject, null, '    ');
+                myObject = this.responseXML.parse("@");
+                myJSONElement.innerText = JSON.stringify(myObject, null, '    ');
                 hljs.highlightBlock(myJSONElement);
             };
             myXHR.open("GET", myXMLFile);
