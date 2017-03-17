@@ -50,18 +50,16 @@ XMLDocument.parse = function(xml, attributePrefix) {
                         case Node.ELEMENT_NODE:
                             break;
                         case Node.TEXT_NODE:
-                            /* Add isEmpty property to node */
-                            node.childNodes[i]._isEmpty = node.childNodes[i].data.trim() === "";
+                            node.childNodes[i].data = node.childNodes[i].data.trim();
+                            /* Check whether the child text node is the only content of the node. */
                             if (!node._hasAttributes && node.childNodes.length === 1) {
                                 object = processNode(node.childNodes[i], attributePrefix);
                                 continue;
-                            } else {
-                                if (node.childNodes[i]._isEmpty) {continue;}
-                                if (object === null) {object = {};}
                             }
+                            if (node.childNodes[i].data === "") {continue;}
                             break;
-                        case Node.COMMENT_NODE:
                         default:
+                            /* This recursion leads to a console message. */
                             processNode(node.childNodes[i], attributePrefix);
                             continue;
                     }
@@ -81,10 +79,8 @@ XMLDocument.parse = function(xml, attributePrefix) {
                 }
                 break;
             case Node.TEXT_NODE:
-                /* Add isEmpty property to node */
-                node._isEmpty = node.data.trim() === "";
-                if (!node._isEmpty) {
-                    object = node.data.trim();
+                if (!(node.data === "")) {
+                    object = node.data;
                 }
                 break;
             case Node.COMMENT_NODE:
