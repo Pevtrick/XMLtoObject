@@ -24,7 +24,7 @@
             myXHR = new XMLHttpRequest();
             myJSONElement = document.getElementById("JSON");
             myXMLElement = document.getElementById("XML");
-            myXMLFile = "rss.xml";
+            myXMLFile = "sample.xml";
 
             myXHR.onreadystatechange = function() {
                 myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
@@ -33,7 +33,7 @@
                 myJSONElement.innerText = JSON.stringify(myJSONObject, null, '    ');
                 hljs.highlightBlock(myJSONElement);
             };
-            myXHR.open("GET", "sample.xml");
+            myXHR.open("GET", myXMLFile);
             myXHR.send();
         </script>
     </body>
