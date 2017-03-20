@@ -25,6 +25,8 @@ XMLDocument.prototype.parse = function(attributePrefix) {
  * @returns {Object} - The generated object according to the Node.
  */
 Node.prototype.parse = function(attributePrefix) {
+    var hasAttributes;
+    var hasChildNodes;
     var i;
     var object;
 
@@ -33,11 +35,11 @@ Node.prototype.parse = function(attributePrefix) {
     switch (this.nodeType) {
         case Node.ELEMENT_NODE:
             /* Add some useful properties to node */
-            this._hasAttributes = this.attributes.length > 0;
-            this._haschildNodes = this.childNodes.length > 0;
+            hasAttributes = this.attributes.length > 0;
+            hasChildNodes = this.childNodes.length > 0;
 
             /* Return null if the node doesn't contain any attributes or child nodes */
-            if (!(this._hasAttributes || this._haschildNodes)) {
+            if (!(hasAttributes || hasChildNodes)) {
                 break;
             }
 
@@ -54,13 +56,12 @@ Node.prototype.parse = function(attributePrefix) {
                     case Node.ELEMENT_NODE:
                         break;
                     case Node.TEXT_NODE:
-                        this.childNodes[i].data = this.childNodes[i].data.trim();
                         /* Check whether the child text node is the only content of the this. */
-                        if (!this._hasAttributes && this.childNodes.length === 1) {
+                        if (!hasAttributes && this.childNodes.length === 1) {
                             object = this.childNodes[i].parse(attributePrefix);
                             continue;
                         }
-                        if (this.childNodes[i].data === "") {continue;}
+                        if (this.childNodes[i].data.trim() === "") {continue;}
                         break;
                     default:
                         /* This recursion leads to a console message. */
@@ -83,7 +84,7 @@ Node.prototype.parse = function(attributePrefix) {
             }
             break;
         case Node.TEXT_NODE:
-            if (this.data !== "") {
+            if (this.data.trim() !== "") {
                 object = this.data;
             }
             break;
@@ -106,5 +107,6 @@ Node.prototype.parse = function(attributePrefix) {
             console.log(node);
             break;
     }
+
     return object;
 }
