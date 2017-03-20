@@ -1,5 +1,6 @@
 ﻿/**
  * XMLParser - Parses XML.
+ * GitHub: https://github.com/Pevtrick/XMLParser
  * by Patrick Jentsch: https://github.com/Pevtrick
  */
 
@@ -13,7 +14,7 @@ XMLDocument.prototype.parse = function(attributePrefix) {
     var object;
 
     object = {};
-    object[this.documentElement.nodeName] = this.documentElement.parse(attributePrefix)
+    object[this.documentElement.nodeName] = this.documentElement.parse(attributePrefix);
 
     return object;
 };
@@ -29,7 +30,7 @@ Node.prototype.parse = function(attributePrefix) {
 
     object = null;
 
-    switch(this.nodeType) {
+    switch (this.nodeType) {
         case Node.ELEMENT_NODE:
             /* Add some useful properties to node */
             this._hasAttributes = this.attributes.length > 0;
@@ -49,7 +50,7 @@ Node.prototype.parse = function(attributePrefix) {
 
             /* Process child nodes */
             for (i = 0; i < this.childNodes.length; i++) {
-                switch(this.childNodes[i].nodeType) {
+                switch (this.childNodes[i].nodeType) {
                     case Node.ELEMENT_NODE:
                         break;
                     case Node.TEXT_NODE:
