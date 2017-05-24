@@ -10,7 +10,8 @@
  * @returns {Object} - The generated object according to the XMLDocument.
  */
 XMLDocument.prototype.parse = function(attributePrefix) {
-    if (attributePrefix === undefined) {attributePrefix = "";}
+    attributePrefix = attributePrefix === undefined ? "" : attributePrefix;
+
     var object;
 
     object = {};
@@ -25,6 +26,8 @@ XMLDocument.prototype.parse = function(attributePrefix) {
  * @returns {Object} - The generated object according to the Node.
  */
 Node.prototype.parse = function(attributePrefix) {
+    attributePrefix = attributePrefix === undefined ? "" : attributePrefix;
+
     var hasAttributes;
     var hasChildNodes;
     var i;
@@ -56,7 +59,7 @@ Node.prototype.parse = function(attributePrefix) {
                     case Node.ELEMENT_NODE:
                         break;
                     case Node.TEXT_NODE:
-                        /* Check whether the child text node is the only content of the this. */
+                        /* Check whether the child text node is the only child of the current node. */
                         if (!hasAttributes && this.childNodes.length === 1) {
                             object = this.childNodes[i].parse(attributePrefix);
                             continue;
