@@ -2,40 +2,32 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
-        <title>XML parser</title>
-        <script src="js/XMLParser.js"></script>
+        <title>XML to Object</title>
+        <script src="js/XMLtoObject.js"></script>
         <!-- highlight.js -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/styles/default.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.10.0/highlight.min.js"></script>
     </head>
     <body>
         <h1>XML</h1>
-        <pre><code id="XML"></code></pre>
+        <pre><code id="xml"></code></pre>
         <h1>JSON (converted)</h1>
-        <pre><code id="JSON"></code></pre>
+        <pre><code id="json"></code></pre>
         <script type="text/javascript">
-            var myJSONElement;
-            var myObject;
-            var myXHR;
-            var myXMLElement;
-            var myXMLFile;
-
-            /* Initialize variables. */
-            myXHR = new XMLHttpRequest();
-            myJSONElement = document.getElementById("JSON");
-            myXMLElement = document.getElementById("XML");
-            myXMLFile = "sample.xml";
+            let myJSONElement = document.querySelector("#json");
+            let myXMLElement = document.querySelector('#xml');
+            let myXHR = new XMLHttpRequest();
 
             myXHR.onreadystatechange = function() {
                 if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                     myXMLElement.innerText = (new XMLSerializer()).serializeToString(this.responseXML);
                     hljs.highlightBlock(myXMLElement);
-                    myObject = this.responseXML.parse("@");
+                    let obj = this.responseXML.toObject("@");
                     myJSONElement.innerText = JSON.stringify(myObject, null, '    ');
                     hljs.highlightBlock(myJSONElement);
                 }
             };
-            myXHR.open("GET", myXMLFile);
+            myXHR.open("GET", 'sample.xml');
             myXHR.send();
         </script>
     </body>
